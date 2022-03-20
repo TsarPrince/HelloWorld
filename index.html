@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World :)</title>
+</head>
+
+<body>
+    <p id="content" style="font-size: 4rem; text-align: center;"></p>
+    <script>
+        getDigits = async () => {
+
+            // fetch first 12 digits of PI residing at 32 millionth something position :)
+
+            fetch("https://api.pi.delivery/v1/pi?start=32626029&numberOfDigits=12")
+                .then(response => response.json())
+                .then(data => {
+                    data.content.replace(8, 7).match(/.{1,2}/g).forEach(e => {
+                        document.getElementById("content").textContent += String.fromCharCode(e);
+                    });
+
+                    // fetch first 10 digits of PI residing at 1 trillionth something position :)))
+                    
+                    return fetch("https://api.pi.delivery/v1/pi?start=1055138672&numberOfDigits=10");
+                })
+                .then(response => response.json())
+                .then(data => {
+                    data.content.match(/.{1,2}/g).forEach(e => {
+                        document.getElementById("content").textContent += String.fromCharCode(e);
+                    });
+                })
+        }
+        getDigits();
+    </script>
+</body>
+</html>
